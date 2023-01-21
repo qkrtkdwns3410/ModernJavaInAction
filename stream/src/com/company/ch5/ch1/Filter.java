@@ -8,7 +8,9 @@
  DATE              AUTHOR             NOTE
  -----------------------------------------------------------
  2023-01-19        ipeac       최초 생성 */
-package com.company;
+package com.company.ch5.ch1;
+
+import com.company.ch5.ch1.Dish;
 
 import java.util.Arrays;
 import java.util.List;
@@ -24,7 +26,7 @@ import java.util.stream.Collectors;
  DATE              AUTHOR             NOTE
  -----------------------------------------------------------
  2023-01-19        ipeac       최초 생성 */
-public class Main {
+public class Filter {
     
     public static void main(String[] args) {
         List<Dish> menu = Arrays.asList(new Dish("pork", false, 800, Dish.Type.MEAT),
@@ -55,9 +57,13 @@ public class Main {
         //고유 요소 필터링
         List<Integer> numbers = Arrays.asList(1, 2, 1, 3, 3, 2, 4);
         numbers.stream()
-               .filter(i -> i % 2 == 0)
-               .distinct()
-               .forEach(System.out::println);
+               .filter(i -> i % 2 == 0) // 짝수인경우
+               .distinct() // 중복제거
+               .forEach(System.out::println); // 프린트한다.
+    
+        System.out.println("numbers = " + numbers);
+        
+        //
     }
     
 }

@@ -8,7 +8,7 @@
  DATE              AUTHOR             NOTE
  -----------------------------------------------------------
  2023-01-19        ipeac       최초 생성 */
-package com.company;
+package com.company.ch5.ch1;
 
 /**
  packageName    : com.company
@@ -67,7 +67,12 @@ public class Dish {
     
     @Override
     public String toString() {
-        return super.toString();
+        return "Dish{" +
+            "name='" + name + '\'' +
+            ", vegetarian=" + vegetarian +
+            ", calories=" + calories +
+            ", type=" + type +
+            '}';
     }
     
     public enum Type {

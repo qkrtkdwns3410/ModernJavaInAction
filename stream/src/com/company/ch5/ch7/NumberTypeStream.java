@@ -11,8 +11,8 @@
 package com.company.ch5.ch7;
 
 import com.company.ch5.ch1.Dish;
-import com.company.ch5.ch1.Filter;
 
+import java.util.Arrays;
 import java.util.OptionalInt;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -76,6 +76,54 @@ public class NumberTypeStream {
         System.out.println("maxCalories = " + maxCalories);
         
         //5.7.2 숫자 범위
+        /*
+        특정 1 에서 100까지 숫자를 생성하는 경우
+        */
+        IntStream evenNumbeers = IntStream.rangeClosed(1, 100) // [1 , ~ 100] 의 범위를 나타냅니다.
+                                          .filter(n -> n % 2 == 0);
+        System.out.println(evenNumbeers.count()); // 1 ~ 100 까지는 50개의 짝수가 존재함.
+        
+        //5.7.3 숫자 스트림 활용 : 피타고라스 수
+        
+        // 피타고라스 수
+        /*
+        ! 안녕
+        ? 안녕
+        * 안녕
+        */
+        // a*a + b*b = c*c 공식을 만족하는 세 개의 정수 (a,b,c) ..
+        
+        //세 수 표현하기
+        //(3, 4, 5) => new int[]{3, 4, 5}
+        
+        //좋은 필터링 조합
+        // a*a + b*b 제곱근이 정수인지 체크함으로 피타고라스 수의 일부가 될 수 있는 좋은 조합 가능
+        
+        Stream<int[]> pythagoreanTriples = IntStream.rangeClosed(1, 100)
+                                                    .boxed()
+                                                    .flatMap(a ->
+                                                        IntStream.rangeClosed(a, 100)
+                                                                 .filter(b -> Math.sqrt(a * a + b * b) % 1 == 0)
+                                                                 .mapToObj(b ->
+                                                                     new int[]{a, b, (int) Math.sqrt(a * a + b * b)}));
+        
+        pythagoreanTriples.limit(5)
+                          .forEach(t ->
+                              System.out.println(t[0] + ", " + t[1] + ", " + t[2]));
+        
+        // 개선점
+        // 현재 코드는 제곱근을 두 번 계산합니다.
+        //따라서 (a*a b*b a*a + b*b ) 의 형식을 만족하는 세 수를 만든 다음에
+        // 우리가 원하는 조건에 맞는 결과만 필터링하는 것이 더 최적화된 방법이라고 볼 수 있습니다.
+        Stream<double[]> pythagoreanTriple2 =
+            IntStream.rangeClosed(1, 100)
+                     .boxed()
+                     .flatMap(a -> IntStream.rangeClosed(a, 100)
+                                            .mapToObj(
+                                                b -> new double[]{a, b, Math.sqrt(a * a + b * b)}
+                                            ) // 만들어진 세 수를 나타냅니다.
+                                            .filter(t -> t[2] % 1 == 0)
+                     ); // 세 수의 세번째 요소는 반드시 정수여야합니다.
         
     }
 }

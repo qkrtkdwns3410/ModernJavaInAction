@@ -55,6 +55,26 @@ public class MakeStream {
          */
         
         // ! iterate 메서드
+        Stream.iterate(0, n -> n + 2)
+              .limit(10)
+              .forEach(System.out::println);
+        //무한 스트림임.
+        /*
+        0 부터 시작해서 +2 로 짝수의 값을 무한 스트림 형태로 .. 만들고 limit로 값을 제한해서 출력한다.
+        무한 스트림  == 언바운드 스트림이라고도 한다.
         
+        */
+        System.out.println("======================================================");
+        // ? 퀴즈 5-4 피보나치 수열 집합
+        Stream.iterate(new int[]{0, 1}, t -> new int[]{t[1], t[1] + t[0]})
+              .limit(20)
+              .forEach(t -> System.out.println("(" + t[0] + ", " + t[1] + ")"));
+        
+        //! generate 메서드
+        Stream.generate(Math::random)
+              .limit(5)
+              .forEach(System.out::println);
+        
+        System.out.println("======================================================");
     }
 }
